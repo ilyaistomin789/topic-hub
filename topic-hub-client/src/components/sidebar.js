@@ -40,9 +40,9 @@ const Sidebar = (props) => {
                         <li><NavLink to="/search" activeClassName="active"><i className="fas fa-search"></i>Search</NavLink></li>
                     </ul>
                     <div className="social_media">
-                        <a href="https://github.com/ilyaistomin789" target="_blank"><i className="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/ilya-istomin-483023206/" target="_blank"><i className="fab fa-linkedin"></i></a>
-                        <a href="https://www.instagram.com/stmnl_/" target="_blank"><i className="fab fa-instagram"></i></a>
+                        <a href="https://github.com/ilyaistomin789" target="_blank" rel="noreferrer"><i className="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/ilya-istomin-483023206/" target="_blank" rel="noreferrer"><i className="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/stmnl_/" target="_blank" rel="noreferrer"><i className="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>

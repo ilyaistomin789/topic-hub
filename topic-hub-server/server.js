@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const initializePassport = require('./config/passport-config');
 
 
-mongoose.connect(process.env.MONGODB_KEY, {
+mongoose.connect(process.env.MONGODB_CONNECT, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(r => {

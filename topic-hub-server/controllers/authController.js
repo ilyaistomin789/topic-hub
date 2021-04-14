@@ -1,7 +1,12 @@
 const User = require('../models/user.model');
 const AuthAccountService = require('../services/auth/authAccountService');
 exports.signUpUser = async (req, res) => {
-    console.log(req.body)
+    const userExists = await User.findOne({
+        username: req.body.username
+    })
+    if (userExists !== null) {
+        return res.status(409).json({ message: 'This user already exists' });
+    }
     const user = new User({
         username: req.body.username,
         firstName: req.body.firstName,

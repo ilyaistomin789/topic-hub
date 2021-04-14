@@ -22,7 +22,7 @@ const initializePassport = (passport) => {
                 return done(err, false);
             }
             if (user) {
-                done(null, user);
+                done(null, {id: user.id, username: user.username, img: user.img, role: user.role});
             } else {
                 done(null, false);
             }

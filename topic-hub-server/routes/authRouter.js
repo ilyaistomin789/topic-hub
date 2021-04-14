@@ -4,7 +4,7 @@ const AuthController = require('../controllers/authController');
 const router = Router();
 
 
-router.post('/auth/login', passport.authenticate('local', { session: false }),(req, res, next) => {
+router.post('/auth/login', passport.authenticate('local', { session: false }), (req, res, next) => {
     const user = AuthController.getAccount(req);
     if (user) {
         res.json(user);
@@ -13,7 +13,6 @@ router.post('/auth/login', passport.authenticate('local', { session: false }),(r
     }
 });
 router.get('/init', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
-    console.log('auth');
     console.log(req.user);
     res.status(200).json(req.user);
 });
