@@ -23,7 +23,7 @@ class SignUpModal extends React.Component{
     checkFields = async (event) => {
         event.preventDefault();
         //TODO add logic
-        await fetch('http://localhost:5000/auth/signup',{
+        await fetch('/auth/signup',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

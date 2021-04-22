@@ -1,8 +1,10 @@
 import * as UserActions from '../../redux/actions/userAction';
+import * as SocketActions from '../../redux/actions/socketAction';
 import {useDispatch} from "react-redux";
 import {bindActionCreators} from "redux";
 const actions = {
-    ...UserActions
+    ...UserActions,
+    ...SocketActions
 }
 const useActions = () => {
     const dispatch = useDispatch();

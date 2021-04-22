@@ -1,20 +1,26 @@
 import React from 'react'
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import {useSelector} from "react-redux";
 import useActions from "../helpers/hooks/useActions";
+import socket from "./socket";
+
 
 
 const Sidebar = (props) => {
+    const history = useHistory();
+    const redirect = (path) => history.push(path);
     const redux = useActions();
     const {username} = useSelector(state => state.user);
     const logout = async () => {
-        await fetch('http://localhost:5000/logout', {
+        await fetch('/logout', {
             method: 'POST'
         }).then(res => res.json())
             .then(value => {
                 console.log(value.message);
                 localStorage.removeItem('token');
                 redux.logoutUser();
+                redirect('/');
+                socket.disconnect();
             })
     }
         return(

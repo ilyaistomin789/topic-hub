@@ -1,3 +1,4 @@
 export const CHANGE_USERNAME = "CHANGE_USERNAME";
 export const AUTHORIZATION = "AUTHORIZATION";
+export const JOIN_ROOM = "JOIN_ROOM";
 

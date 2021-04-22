@@ -13,7 +13,7 @@ const LoginModal = (props) => {
         event.preventDefault();
         // this.state.login.length < 5 && alert('Login length must be more than 5 characters');
         // this.state.password.length < 5 && alert('Password length must be more than 5 characters');
-        await fetch('http://localhost:5000/auth/login', {
+        await fetch('/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

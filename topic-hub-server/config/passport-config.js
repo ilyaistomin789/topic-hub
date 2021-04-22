@@ -2,6 +2,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user.model');
 const JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
+
 const initializePassport = (passport) => {
     var opts = {}
     opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();

@@ -2,6 +2,7 @@
   "name": "topic-hub-client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
@@ -16,6 +17,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
+    "socket.io-client": "^4.0.1",
     "web-vitals": "^1.1.1"
   },
   "scripts": {
