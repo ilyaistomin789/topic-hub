@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Sidebar from "./components/sidebar";
 import Home from './components/home'
 import './css/app.css'
-import {BrowserRouter, Route, Switch, useHistory} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import LoginModal from "./modal/loginModal";
 import SignUpModal from "./modal/signUpModal";
 import useActions from "./helpers/hooks/useActions";
@@ -12,12 +12,14 @@ import {useSelector} from "react-redux";
 
 
 function App() {
-    const history = useHistory();
     const {username} = useSelector(state => state.user);
-    const redirect = (path) => history.push(path);
     const [showLogInModal, toggleLogInModal] = useState(false);
     const [showSignUp, toggleSignUpModal] = useState(false);
     const redux = useActions();
+    const setMessage = (obj) => redux.setMessage(obj);
+    const setUsers = (users) => redux.setSocket(users);
+
+
     const preload = async () => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -32,9 +34,11 @@ function App() {
             }).then(r => r.json())
                 .then(user => {
                     redux.authUser(user.id, user.username, user.role, user.img, token, true);
+                    socket.emit('JOIN', {username: user.username});
                 })
                 .catch((e) => {
                     localStorage.removeItem('token');
+                    socket.disconnect();
                     toggleLogInModal(true);
                 })
         } else console.warn("Check request is passed")
@@ -42,19 +46,9 @@ function App() {
 
     useEffect(() => {
         preload();
+        socket.on("SET_USERS", setUsers);
+        socket.on("NEW_MESSAGE", setMessage);
     }, [])
-
-    socket.on("connect_error", (err) => {
-        console.log("connect error")
-        if (err.message === "invalid username") {
-            socket.usernameAlreadySelected = false;
-        }
-    });
-
-    socket.on("user connected", (user) => {
-        console.log("user connected");
-        //TODO add user
-    });
 
   return (
       <BrowserRouter>
@@ -70,7 +64,7 @@ function App() {
 
                   </Route>
                   <Route path="/chat" exact>
-                      {!!username ? <Chat/> : null}
+                      {!!username ? <Chat onSetMessage={setMessage}/> : null}
                       {/*TODO fix null*/}
                   </Route>
               </Switch>

@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Modal from "../elements/modal";
 import '../css/login.css';
 import useActions from "../helpers/hooks/useActions";
 import {useHistory} from "react-router-dom";
+import socket from "../components/socket";
 const LoginModal = (props) => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
@@ -26,10 +27,16 @@ const LoginModal = (props) => {
             .then(user => {
                 redux.authUser(user['user'].id, user['user'].username, user['user'].role, user['user'].img, user.token, user.success);
                 props.toggleModal(false);
+                socket.emit('JOIN', {username: user['user'].username});
                 redirect('/profile');
                 localStorage.setItem('token', user.token);
             })
     }
+    useEffect(() => {
+        socket.on("SOCKET_DATA", data => {
+            redux.setChatData(data);
+        })
+    }, [])
         return(
             <Modal toggleModal={props.toggleModal}>
                 <form onSubmit={checkFields}>

@@ -1,26 +1,15 @@
-#container{
-    width:900px;
-    height:690px;
-    background:#eff3f7;
-    margin:0 auto;
-    font-size:0;
-    border-radius:5px;
-    overflow:hidden;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-}
+
 aside{
-    width:260px;
-    height:800px;
+    width:300px;
+    height:890px;
     background-color:#3b3e49;
     display:inline-block;
     font-size:15px;
     vertical-align:top;
 }
 main{
-    width:490px;
-    height:400px;
+    width:600px;
+    height:890px;
     display:inline-block;
     font-size:15px;
     vertical-align:top;
@@ -51,7 +40,7 @@ aside ul{
     margin:0;
     list-style-type:none;
     overflow-y:scroll;
-    height:690px;
+    height:890px;
 }
 aside li{
     padding:10px 0;
@@ -141,7 +130,8 @@ main header h3{
     margin:0;
     list-style-type:none;
     overflow-y:scroll;
-    height:535px;
+    height:720px;
+    width: 1250px;
     border-top:2px solid #fff;
     border-bottom:2px solid #fff;
 }
@@ -167,6 +157,7 @@ main header h3{
     display:inline-block;
     text-align:left;
     border-radius:5px;
+    margin-bottom: 0;
 }
 #chat .me{
     text-align:right;
@@ -194,6 +185,7 @@ main header h3{
 
 main footer{
     height:155px;
+    width: 1250px;
     padding:20px 30px 10px 20px;
 }
 main footer textarea{
@@ -214,14 +206,19 @@ main footer img{
     height:30px;
     cursor:pointer;
 }
-main footer a{
+main footer button{
     text-decoration:none;
     text-transform:uppercase;
     font-weight:bold;
-    color:#6fbced;
+    background-color:#6fbced;
     vertical-align:top;
     margin-left:333px;
     margin-top:5px;
     display:inline-block;
     float: right;
+    border: 0;
+    cursor: pointer;
+    border-radius: 99em;
+    width: 100px;
+    height: 50px;
 }

@@ -1,70 +1,69 @@
 import socket from "./socket";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import '../css/chat.css';
 import useActions from "../helpers/hooks/useActions";
-const Chat = (props) => {
+const Chat = ({onSetMessage}) => {
     const redux = useActions();
-    const usernameSelection = (username) => {
-        socket.usernameAlreadySelected = true;
-        socket.auth = { username };
-        socket.connect();
-        socket.on("users", (users) => {
-            console.log("users");
-            console.log(users)
-            users.forEach((user) => {
-                user.self = user.userID === socket.id;
-            });
-            // put the current user first, and then sort by username
-            users = users.sort((a, b) => {
-                if (a.self) return -1;
-                if (b.self) return 1;
-                if (a.username < b.username) return -1;
-                return a.username > b.username ? 1 : 0;
-            });
-            redux.setSocket(users);
-
-            //props.toggleChatUserList(users);
-        });
-    }
+    const messagesRef = useRef(null);
     const {username} = useSelector(state => state.user);
+    const {users, messages} = useSelector(state => state.chatData);
+    const [messageValue, setMessageValue] = useState('');
     useEffect(() => {
-        usernameSelection(username);
-    }, []);
+        messagesRef.current.scrollTo(0, 99999);
+        socket.on("SOCKET_DATA", data => {
+            redux.setChatData(data);
+        })
+    }, [messages]);
+    const onSendMessage = () => {
+        socket.emit("NEW_MESSAGE", {
+            username: username,
+            message: messageValue
+        })
+        onSetMessage({ username: username, message: messageValue});
+        setMessageValue('');
+        socket.on("SOCKET_DATA", data => {
+            redux.setChatData(data);
+        })
+    }
+
     return(
         <div className="main_content">
             <div className="info">
-                <div id="container">
                     <aside>
                         <ul>
-                            {/*{props.chatUserList.map((el, index) => (*/}
-                            {/*    <li key={index}>*/}
-                            {/*        <div>*/}
-                            {/*            <h2>{el.username}</h2>*/}
-                            {/*            <h3>*/}
-                            {/*                <span className="status green"/>*/}
-                            {/*                online*/}
-                            {/*            </h3>*/}
-                            {/*        </div>*/}
-                            {/*    </li>*/}
-                            {/*))}*/}
+                            {users.map((el, index) => (
+                                <li key={index}>
+                                    <div>
+                                        <h2>{el.username}</h2>
+                                        <h3>
+                                            <span className="status green"/>
+                                            online
+                                        </h3>
+                                    </div>
+                                </li>
+                            ))}
                         </ul>
                     </aside>
                     <main>
-                        <ul id="chat">
-                            <li className="me">
-                                <div className="message">
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                    dolor.
-                                </div>
-                            </li>
+                        <ul id="chat" ref={messagesRef}>
+                            {messages.map((message, index) => (
+                                <li key={index} className="me">
+                                    <div className="message">
+                                        {message.message}
+                                    </div>
+                                    <div>{message.username}</div>
+                                </li>
+                            ))}
+
+
                         </ul>
                         <footer>
-                            <textarea placeholder="Type your message"></textarea>
-                            <a href="#">Send</a>
+                            <textarea placeholder="Type your message" value={messageValue} onChange={(e) => setMessageValue(e.target.value)}/>
+                            <button onClick={onSendMessage} type="button">Send</button>
                         </footer>
                     </main>
-                </div>
+
             </div>
         </div>
     )
