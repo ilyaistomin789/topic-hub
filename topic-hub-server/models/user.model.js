@@ -22,18 +22,28 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    createAt: {
-        default: Date.now(),
-        type: Date
-    },
     img: {
-        data: Buffer,
-        contentType: String
+        type: String
     },
     role: {
         type: String,
         required: true
+    },
+    github: {
+        type: String
+    },
+    twitter: {
+        type: String
+    },
+    instagram: {
+        type: String
+    },
+    facebook: {
+        type: String
     }
-})
+},
+    {
+        timestamps: true
+    })
 
 module.exports = mongoose.model('User', userSchema);

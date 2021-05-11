@@ -6,14 +6,17 @@ const postSchema = new Schema({
         type: String,
         required: true
     },
-    createAt: {
-        default: Date.now(),
-        type: Date
+    createBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
-    updatedAt: {
-        type: Date
-    },
-    subtopics: [{ type: Schema.Types.ObjectId, ref: 'Subtopic' }],
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
-})
+    topic: {
+        type: Schema.Types.ObjectId,
+        ref: 'Topic'
+    }
+},
+    {
+        timestamps: true
+    })
 module.exports = mongoose.model('Post', postSchema);

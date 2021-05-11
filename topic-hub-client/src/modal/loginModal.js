@@ -4,7 +4,8 @@ import '../css/login.css';
 import useActions from "../helpers/hooks/useActions";
 import {useHistory} from "react-router-dom";
 import socket from "../components/socket";
-const LoginModal = (props) => {
+import ModalCloseButton from "../elements/modalCloseButton";
+const LoginModal = ({ closeCallback }) => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const redux = useActions();
@@ -26,9 +27,9 @@ const LoginModal = (props) => {
         }).then(res => res.json())
             .then(user => {
                 redux.authUser(user['user'].id, user['user'].username, user['user'].role, user['user'].img, user.token, user.success);
-                props.toggleModal(false);
+                closeCallback();
                 socket.emit('JOIN', {username: user['user'].username});
-                redirect('/profile');
+                redirect(`/profile/${user['user'].id}`);
                 localStorage.setItem('token', user.token);
             })
     }
@@ -38,13 +39,24 @@ const LoginModal = (props) => {
         })
     }, [])
         return(
-            <Modal toggleModal={props.toggleModal}>
+            <Modal>
+                <ModalCloseButton closeCallback={closeCallback}/>
                 <form onSubmit={checkFields}>
                     <div className="login-div">
-                        <p className="login-paragraph" align="center">Login</p>
-                        <input className="login-input" name="login" type="text" placeholder="Login" value={login} onChange={(event) => setLogin(event.target.value)}/>
-                        <input className="password-input" name="password" type="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)}/>
-                        <input className="submit" type="submit" value="Login"/>
+                        <p className="login-paragraph" align="center">Log in</p>
+                        <div className="container">
+                        <div className="mb-3">
+                            <label htmlFor="login-input" className="form-label">Login</label>
+                            <input type="text" className="form-control" name="login" id="login-input"
+                                   placeholder="login" value={login} onChange={(event) => setLogin(event.target.value)}/>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="password-input" className="form-label">Password</label>
+                            <input type="password" className="form-control" name="password" id="password-input"
+                                   placeholder="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
+                        </div>
+                        </div>
+                        <input className="btn btn-success" type="submit" value="Log In"/>
                     </div>
                 </form>
             </Modal>

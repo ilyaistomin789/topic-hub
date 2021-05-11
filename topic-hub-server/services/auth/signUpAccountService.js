@@ -12,10 +12,14 @@ module.exports = async (req, res) => {
         lastName: req.body.lastName,
         email: req.body.email,
         password: req.body.password,
-        img: {},
-        role: 'user'
+        img: '',
+        role: 'user',
+        github: '',
+        twitter: '',
+        instagram: '',
+        facebook: ''
     })
-    await user.save().catch(e => {
+    user.save().catch(e => {
         console.log(e.message)});
     res.json({message: 'Sign up success'});
 }

@@ -19,10 +19,7 @@ class Modal extends React.Component{
 
     render() {
         return createPortal(
-            <>
-                <button type="button" onClick={() => this.props.toggleModal(false)}><i className="fas fa-times"></i></button>
-                {this.props.children}
-            </>,
+            <>{this.props.children}</>,
             this.el);
     }
 

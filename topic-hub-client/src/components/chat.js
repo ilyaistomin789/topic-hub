@@ -6,10 +6,11 @@ import useActions from "../helpers/hooks/useActions";
 const Chat = ({onSetMessage}) => {
     const redux = useActions();
     const messagesRef = useRef(null);
-    const {username} = useSelector(state => state.user);
+    const { username } = useSelector(state => state.user);
     const {users, messages} = useSelector(state => state.chatData);
     const [messageValue, setMessageValue] = useState('');
     useEffect(() => {
+        socket.connect();
         messagesRef.current.scrollTo(0, 99999);
         socket.on("SOCKET_DATA", data => {
             redux.setChatData(data);

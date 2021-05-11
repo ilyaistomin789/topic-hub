@@ -1,26 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import Modal from "../elements/modal";
 import '../css/signUp.css'
-class SignUpModal extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            login: '',
-            password: '',
-            confirmPassword: '',
-            email: '',
-            firstName: '',
-            lastName: ''
-        }
-        this.checkFields = this.checkFields.bind(this);
-        this.handleLoginChange = this.handleLoginChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
-        this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-        this.handleLastNameChange = this.handleLastNameChange.bind(this);
-    }
-    checkFields = async (event) => {
+import ModalCloseButton from "../elements/modalCloseButton";
+const SignUpModal = ({ closeCallback }) => {
+    const [login, setLogin] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const checkFields = async (event) => {
         event.preventDefault();
         //TODO add logic
         await fetch('/auth/signup',{
@@ -29,49 +18,69 @@ class SignUpModal extends React.Component{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: this.state.login,
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                email: this.state.email,
-                password: this.state.password
+                username: login,
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password
             })
         });
     }
-    handleLoginChange = (event) => {
-        this.setState({ login: event.target.value })
-    }
-    handlePasswordChange = (event) => {
-        this.setState({ password: event.target.value })
-    }
-    handleConfirmPasswordChange = (event) => {
-        this.setState({ confirmPassword: event.target.value })
-    }
-    handleEmailChange = (event) => {
-        this.setState({ email: event.target.value })
-    }
-    handleFirstNameChange = (event) => {
-        this.setState({ firstName: event.target.value })
-    }
-    handleLastNameChange = (event) => {
-        this.setState({ lastName: event.target.value })
-    }
-    render() {
-        return (
-            <Modal toggleModal={this.props.toggleModal}>
-                <form onSubmit={this.checkFields}>
-                    <div className="signUp-div">
-                        <p className="signUp-paragraph">Sign Up</p>
-                        <input className="login-input" name="name" type="text" placeholder="Login" value={this.state.login} onChange={this.handleLoginChange}/>
-                        <input className="firstName-input" name="firstName" type="text" placeholder="First Name" value={this.state.firstName} onChange={this.handleFirstNameChange}/>
-                        <input className="lastName-input" name="lastName" type="text" placeholder="Last Name" value={this.state.lastName} onChange={this.handleLastNameChange}/>
-                        <input className="email-input" name="email" type="text" placeholder="E-mail" value={this.state.email} onChange={this.handleEmailChange}/>
-                        <input className="password-input" name="password" type="password" placeholder="Password" align="center" value={this.state.password} onChange={this.handlePasswordChange}/>
-                        <input className="confirmPassword-input" type="password" placeholder="Confirm Password" align="center" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange}/>
-                        <input className="submit" type="submit" value="Sign Up"/>
-                    </div>
-                </form>
-            </Modal>
-        );
-    }
+    return (
+        <Modal>
+            <ModalCloseButton closeCallback={closeCallback}/>
+            <form onSubmit={checkFields}>
+                <div className="signUp-div">
+                    <p className="signUp-paragraph">Sign Up</p>
+                        <div className="row">
+                            <div className="col">
+                                <div className="mb-3">
+                                    <label htmlFor="firstName-input" className="form-label">First Name</label>
+                                    <input type="text" className="form-control" id="firstName-input"
+                                           value={firstName} onChange={e => setFirstName(e.target.value)}
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="lastName-input" className="form-label">Last Name</label>
+                                    <input type="text" className="form-control" id="lastName-input"
+                                           value={lastName} onChange={e => setLastName(e.target.value)}
+                                    />
+                                    <div className="mb-3">
+                                        <label htmlFor="email-input" className="form-label">Email address</label>
+                                        <input type="email" className="form-control" id="email-input"
+                                               aria-describedby="emailHelp"
+                                               value={email} onChange={e => setEmail(e.target.value)}/>
+                                        <div id="emailHelp" className="form-text">We'll never share your email with anyone else.
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div className="col order-1">
+                                <div className="mb-3">
+                                    <label htmlFor="login-input" className="form-label">Login</label>
+                                    <input type="text" className="form-control" id="login-input"
+                                           value={login} onChange={e => setLogin(e.target.value)}/>
+                                    <div className="mb-3">
+                                        <label htmlFor="password-input" className="form-label">Password</label>
+                                        <input type="password" className="form-control" id="password-input"
+                                               value={password} onChange={e => setPassword(e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="confirmPassword-input" className="form-label">Confirm Password</label>
+                                        <input type="password" className="form-control" id="confirmPassword-input"
+                                               value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <input className="btn btn-success" type="submit" value="Sign Up"/>
+                </div>
+            </form>
+        </Modal>
+    );
 }
+
 export default SignUpModal

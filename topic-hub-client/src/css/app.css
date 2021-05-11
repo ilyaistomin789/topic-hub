@@ -37,7 +37,9 @@ body{
 }
 
 .wrapper .sidebar ul li{
-
+}
+ul{
+    padding-left: 0rem;
 }
 
 .wrapper .sidebar ul li a{
@@ -154,7 +156,6 @@ body{
 
 .main_content{
     margin-left: 250px;
-    display: flex;
 }
 
 
@@ -162,8 +163,4 @@ body{
     margin: 20px;
     color: #717171;
     line-height: 25px;
-}
-
-.main_content .info div{
-    margin-bottom: 20px;
 }

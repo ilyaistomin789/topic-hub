@@ -6,14 +6,15 @@ const topicSchema = new Schema({
         type: String,
         required: true
     },
-    createAt: {
-        default: Date.now(),
-        type: Date
-    },
-    updatedAt: {
-        type: Date
+    createBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
-})
+},
+    {
+        timestamps: true
+    })
 
 module.exports = mongoose.model('Topic', topicSchema);
 

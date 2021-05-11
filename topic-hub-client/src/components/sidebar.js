@@ -1,16 +1,20 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {NavLink, useHistory} from "react-router-dom";
 import {useSelector} from "react-redux";
 import useActions from "../helpers/hooks/useActions";
 import socket from "./socket";
+import LoginModal from "../modal/loginModal";
+import SignUpModal from "../modal/signUpModal";
 
 
 
 const Sidebar = (props) => {
+    const [showLogInModal, toggleLogInModal] = useState(false);
+    const [showSignUpModal, toggleSignUpModal] = useState(false);
     const history = useHistory();
     const redirect = (path) => history.push(path);
     const redux = useActions();
-    const {username} = useSelector(state => state.user);
+    const { id ,username, role, img} = useSelector(state => state.user);
     const logout = async () => {
         await fetch('/logout', {
             method: 'POST'
@@ -19,29 +23,44 @@ const Sidebar = (props) => {
                 console.log(value.message);
                 localStorage.removeItem('token');
                 redux.logoutUser();
+                redux.clearTopics();
                 socket.emit("USER_DISCONNECTED", username);
                 socket.disconnect();
                 redirect('/');
             })
     }
         return(
+
             <div className="wrapper">
+                {showLogInModal ? (
+                    <LoginModal
+                        closeCallback={() => toggleLogInModal(false)}
+                    />
+                ) : null}
+                {showSignUpModal ? <SignUpModal closeCallback={() => toggleSignUpModal(false)} /> : null}
                 <div className="sidebar">
                     <h2>Topic Hub</h2>
                     <ul>
                         <li><div className='profile-image'>
-                            <i className="fas fa-user-ninja"/>
+                            {img ? <img src={img} alt="Admin" className="rounded-circle profile-image"/> :
+                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                                     className="rounded-circle profile-image"/>}
                         </div>
                             <span>{username ? username : 'Unauthorized user'}</span>
                             {username ? <div className="logout-button">
                                 <button type="button" onClick={logout}>Log out</button>
                             </div> : <div className="auth-buttons">
-                                <button type="button" onClick={() => props.toggleLogInModal(true)}>Log in</button>
-                                <button type="button" onClick={() => props.toggleSignUpModal(true)}>Sign up</button>
+                                <button type="button" onClick={() => {
+                                    toggleLogInModal(true)
+                                }}>Log in</button>
+                                <button type="button" onClick={() => {
+                                    toggleSignUpModal(true)
+                                }}>Sign up</button>
                             </div>}
                         </li>
+                        {role === 'admin' ? <li><NavLink to="/admin" exact activeClassName="active"><i className="fas fa-user-cog"></i>Admin Panel</NavLink></li> : null}
                         <li><NavLink to="/" exact activeClassName="active"><i className="fas fa-home"></i>Home</NavLink></li>
-                        <li><NavLink to="/profile" activeClassName="active"><i className="fas fa-user"></i>Profile</NavLink></li>
+                        <li><NavLink to={`/profile/${id}`} activeClassName="active"><i className="fas fa-user"></i>Profile</NavLink></li>
                         <li><NavLink to="/topic" activeClassName="active"><i className="fas fa-book"></i>Topics</NavLink></li>
                         <li><NavLink to="/chat" activeClassName="active"><i className="fas fa-paper-plane"></i>Chat</NavLink></li>
                         <li><NavLink to="/search" activeClassName="active"><i className="fas fa-search"></i>Search</NavLink></li>

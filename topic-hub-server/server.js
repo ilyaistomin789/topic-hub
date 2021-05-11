@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const AuthRouter = require('./routes/authRouter');
+const TopicRouter = require('./routes/topicRouter');
+const UserRouter = require('./routes/userRouter');
 const app = express();
 const passport = require('passport');
 const mongoose = require('mongoose');
@@ -81,4 +83,6 @@ io.on('connection', socket => {
 })
 
 app.use(AuthRouter);
+app.use(TopicRouter);
+app.use(UserRouter);
 server.listen(process.env.PORT);

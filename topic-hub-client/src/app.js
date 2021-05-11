@@ -3,16 +3,18 @@ import Sidebar from "./components/sidebar";
 import Home from './components/home'
 import './css/app.css'
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import LoginModal from "./modal/loginModal";
-import SignUpModal from "./modal/signUpModal";
 import useActions from "./helpers/hooks/useActions";
 import Chat from "./components/chat";
 import socket from "./components/socket"
 import {useSelector} from "react-redux";
+import Topic from "./components/topic";
+import AdminPanel from "./components/admin/adminPanel";
+import CurrentTopic from "./components/currentTopic";
+import Profile from "./components/profile";
 
 
 function App() {
-    const {username} = useSelector(state => state.user);
+    const {id ,username} = useSelector(state => state.user);
     const [showLogInModal, toggleLogInModal] = useState(false);
     const [showSignUp, toggleSignUpModal] = useState(false);
     const redux = useActions();
@@ -52,20 +54,27 @@ function App() {
 
   return (
       <BrowserRouter>
-          {!!showLogInModal ? <LoginModal toggleModal={toggleLogInModal}/> : null}
-          {!!showSignUp ? <SignUpModal toggleModal={toggleSignUpModal}/> : null}
           <div className="App">
-              <Sidebar toggleLogInModal={toggleLogInModal} toggleSignUpModal={toggleSignUpModal}/>
+              <Sidebar/>
               <Switch>
                   <Route path="/" exact>
                       <Home/>
                   </Route>
-                  <Route path="/profile" exact>
-
+                  <Route path="/admin" exact>
+                      <AdminPanel/>
+                  </Route>
+                  <Route path="/profile/:id">
+                      {!!id ? <Profile/> : null}
+                  </Route>
+                  <Route path="/topic" exact>
+                      <Topic/>
                   </Route>
                   <Route path="/chat" exact>
                       {!!username ? <Chat onSetMessage={setMessage}/> : null}
                       {/*TODO fix null*/}
+                  </Route>
+                  <Route path='/topic/:name'>
+                      <CurrentTopic/>
                   </Route>
               </Switch>
           </div>
