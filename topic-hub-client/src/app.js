@@ -11,17 +11,15 @@ import Topic from "./components/topic";
 import AdminPanel from "./components/admin/adminPanel";
 import CurrentTopic from "./components/currentTopic";
 import Profile from "./components/profile";
-
+import LoginModal from "./modal/loginModal";
+import CurrentPost from "./components/currentPost";
 
 function App() {
-    const {id ,username} = useSelector(state => state.user);
-    const [showLogInModal, toggleLogInModal] = useState(false);
-    const [showSignUp, toggleSignUpModal] = useState(false);
+    const {id, username} = useSelector(state => state.user);
     const redux = useActions();
     const setMessage = (obj) => redux.setMessage(obj);
     const setUsers = (users) => redux.setSocket(users);
-
-
+    const [showLogInModal, toggleLogInModal] = useState(false);
     const preload = async () => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -52,37 +50,57 @@ function App() {
         socket.on("NEW_MESSAGE", setMessage);
     }, [])
 
-  return (
-      <BrowserRouter>
-          <div className="App">
-              <Sidebar/>
-              <Switch>
-                  <Route path="/" exact>
-                      <Home/>
-                  </Route>
-                  <Route path="/admin" exact>
-                      <AdminPanel/>
-                  </Route>
-                  <Route path="/profile/:id">
-                      {!!id ? <Profile/> : null}
-                  </Route>
-                  <Route path="/topic" exact>
-                      <Topic/>
-                  </Route>
-                  <Route path="/chat" exact>
-                      {!!username ? <Chat onSetMessage={setMessage}/> : null}
-                      {/*TODO fix null*/}
-                  </Route>
-                  <Route path='/topic/:name'>
-                      <CurrentTopic/>
-                  </Route>
-              </Switch>
-          </div>
-      </BrowserRouter>
 
-  );
+    const closeModal = () => {
+        console.log('close')
+        toggleLogInModal(false);
+        console.log(showLogInModal);
+    }
+
+    return (
+        <BrowserRouter>
+            <div className="App">
+                {showLogInModal ? (<LoginModal closeCallback={closeModal}/>) : null}
+                <Sidebar/>
+                <Switch>
+                    <Route path="/" exact>
+                        <Home/>
+                    </Route>
+                    <Route path="/admin" exact>
+                        <AdminPanel/>
+                    </Route>
+                    <Route path="/profile/:id">
+                        {!!id ? <Profile/> : () => {
+                            toggleLogInModal(true)
+                        }}
+                    </Route>
+                    <Route path="/topic" exact>
+                        {!!username ? <Topic/> : () => {
+                            toggleLogInModal(true)
+                        }}
+                    </Route>
+                    <Route path="/chat" exact>
+                        {!!username ? <Chat onSetMessage={setMessage}/> : () => {
+                            toggleLogInModal(true)
+                        }}
+                        {/*TODO fix null*/}
+                    </Route>
+                    <Route path='/topic/:topicName' exact>
+                        {!!username ? <CurrentTopic/> : () => {
+                            toggleLogInModal(true)
+                        }}
+                    </Route>
+                    <Route path='/topic/:topicName/:postId' exact>
+                        {!!username ? <CurrentPost/> : () => {
+                            toggleLogInModal(true)
+                        }}
+                    </Route>
+                </Switch>
+            </div>
+        </BrowserRouter>
+
+    );
 }
-
 
 
 export default App;

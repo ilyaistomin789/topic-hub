@@ -5,7 +5,8 @@ import {useSelector} from "react-redux";
 import React, {useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import useActions from "../helpers/hooks/useActions";
-const EditUserModal = ({ closeCallback }) => {
+
+const EditUserModal = ({closeCallback}) => {
     const {firstName, lastName, img, email, github, twitter, instagram, facebook} = useSelector(state => state.user);
     const [firstNameValue, setFirstNameValue] = useState(firstName);
     const [lastNameValue, setLastNameValue] = useState(lastName);
@@ -20,7 +21,7 @@ const EditUserModal = ({ closeCallback }) => {
     const {id} = useParams();
     const editUserSubmit = async (event) => {
         event.preventDefault();
-        await fetch(`/user/${id}`,{
+        await fetch(`/user/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +45,7 @@ const EditUserModal = ({ closeCallback }) => {
             })
     }
 
-    return(
+    return (
         <Modal>
             <ModalCloseButton closeCallback={closeCallback}/>
             <div className="edit-user-div">
@@ -56,9 +57,10 @@ const EditUserModal = ({ closeCallback }) => {
                         <div className="mb-3">
                             <label htmlFor="img-input" className="form-label">Image</label>
                             <input type="text" className="form-control" id="img-input"
-                                   aria-describedby="imgHelp" value={imgValue} onChange={e => setImgValue(e.target.value)}/>
-                                <div id="imgHelp" className="form-text">Enter the image URL.
-                                </div>
+                                   aria-describedby="imgHelp" value={imgValue}
+                                   onChange={e => setImgValue(e.target.value)}/>
+                            <div id="imgHelp" className="form-text">Enter the image URL.
+                            </div>
                         </div>
                         <div className="row">
                             <div className="col">

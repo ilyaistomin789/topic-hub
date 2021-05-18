@@ -1,22 +1,24 @@
-import {ALL_TOPICS, CURRENT_TOPIC, TOPIC_CLEAR} from "./actionTypes";
+import {ALL_POSTS, CURRENT_POST, POST_CLEAR} from "./actionTypes";
 
 const initialState = {
     _id: '',
-    name: '',
-    createBy: '',
+    header: '',
+    createBy: {},
+    topic: {},
+    description: '',
     createdAt: '',
     updatedAt: '',
-    topics: []
+    posts: []
 }
-const topicReducer = (state = initialState, action) => {
+const postReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ALL_TOPICS: {
+        case ALL_POSTS: {
             return {...state, ...action.payload};
         }
-        case CURRENT_TOPIC: {
+        case CURRENT_POST: {
             return {...state, ...action.payload};
         }
-        case TOPIC_CLEAR: {
+        case POST_CLEAR: {
             return initialState;
         }
         default: {
@@ -24,4 +26,5 @@ const topicReducer = (state = initialState, action) => {
         }
     }
 }
-export default topicReducer;
+
+export default postReducer;

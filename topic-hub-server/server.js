@@ -5,6 +5,8 @@ const cors = require('cors')
 const AuthRouter = require('./routes/authRouter');
 const TopicRouter = require('./routes/topicRouter');
 const UserRouter = require('./routes/userRouter');
+const PostRouter = require('./routes/postRouter');
+const CommentRouter = require('./routes/commentRouter');
 const app = express();
 const passport = require('passport');
 const mongoose = require('mongoose');
@@ -84,5 +86,8 @@ io.on('connection', socket => {
 
 app.use(AuthRouter);
 app.use(TopicRouter);
+app.use(CommentRouter);
 app.use(UserRouter);
+app.use(PostRouter);
+
 server.listen(process.env.PORT);

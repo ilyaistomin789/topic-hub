@@ -8,7 +8,7 @@ const Topic = (props) => {
     const token = localStorage.getItem('token');
     useEffect(() => {
         (async () => {
-            if (token){
+            if (token) {
                 await fetch('/topic', {
                     method: 'GET',
                     headers: {
@@ -22,9 +22,9 @@ const Topic = (props) => {
             }
         })()
     }, [])
-    const { topics } = useSelector(state => state.topic);
+    const {topics} = useSelector(state => state.topic);
 
-    return(
+    return (
         <div className="main_content">
             <div className="info">
                 <h2>Topics</h2>
@@ -35,7 +35,8 @@ const Topic = (props) => {
                                 <span id="span_username">{topic.name}</span>
                             </div>
                             <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                <NavLink to={`/topic/${topic.name}`} exact className="btn btn-outline-primary">Show</NavLink>
+                                <NavLink to={`/topic/${topic.name}`} exact
+                                         className="btn btn-outline-primary">Show</NavLink>
                             </div>
                         </li>
                     ))}

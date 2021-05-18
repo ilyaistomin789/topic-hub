@@ -7,7 +7,7 @@ const initialState = {
 const chatDataReducer = (state = initialState, action) => {
     switch (action.type) {
         case CHAT_DATA: {
-            return { ...state, ...action.payload };
+            return {...state, ...action.payload};
         }
         default: {
             return state;

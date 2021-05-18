@@ -5,12 +5,15 @@ import useActions from "../helpers/hooks/useActions";
 import {useHistory} from "react-router-dom";
 import socket from "../components/socket";
 import ModalCloseButton from "../elements/modalCloseButton";
-const LoginModal = ({ closeCallback }) => {
+
+const LoginModal = ({closeCallback}) => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const redux = useActions();
     const history = useHistory();
-    const redirect = (path) => { history.push(path); }
+    const redirect = (path) => {
+        history.push(path);
+    }
     const checkFields = async (event) => {
         event.preventDefault();
         // this.state.login.length < 5 && alert('Login length must be more than 5 characters');
@@ -38,28 +41,30 @@ const LoginModal = ({ closeCallback }) => {
             redux.setChatData(data);
         })
     }, [])
-        return(
-            <Modal>
-                <ModalCloseButton closeCallback={closeCallback}/>
-                <form onSubmit={checkFields}>
-                    <div className="login-div">
-                        <p className="login-paragraph" align="center">Log in</p>
-                        <div className="container">
+    return (
+        <Modal>
+            <ModalCloseButton closeCallback={closeCallback}/>
+            <form onSubmit={checkFields}>
+                <div className="login-div">
+                    <p className="login-paragraph" align="center">Log in</p>
+                    <div className="container">
                         <div className="mb-3">
                             <label htmlFor="login-input" className="form-label">Login</label>
                             <input type="text" className="form-control" name="login" id="login-input"
-                                   placeholder="login" value={login} onChange={(event) => setLogin(event.target.value)}/>
+                                   placeholder="login" value={login}
+                                   onChange={(event) => setLogin(event.target.value)}/>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="password-input" className="form-label">Password</label>
                             <input type="password" className="form-control" name="password" id="password-input"
-                                   placeholder="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
+                                   placeholder="password" value={password}
+                                   onChange={(event) => setPassword(event.target.value)}/>
                         </div>
-                        </div>
-                        <input className="btn btn-success" type="submit" value="Log In"/>
                     </div>
-                </form>
-            </Modal>
-        )
+                    <input className="btn btn-success" type="submit" value="Log In"/>
+                </div>
+            </form>
+        </Modal>
+    )
 }
 export default LoginModal

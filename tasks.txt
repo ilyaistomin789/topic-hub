@@ -11,4 +11,10 @@
 bcrypt pass
 
 админ панель
+
+post img url
+comment
+if id owner = user => add button edit delete (post, comment)
 топики, юзеры, crud
+search
+open modal if unathorized user

@@ -35,7 +35,7 @@ class Main extends React.Component {
                         consectetur culpa magni omnis vero odio suscipit vitae dolor quod dignissimos perferendis
                         eos? Consequuntur!
                     </div>
-                    
+
                     <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed nobis ut exercitationem
                         atque accusamus sit natus officiis totam blanditiis at eum nemo, nulla et quae eius culpa
                         eveniet voluptatibus repellat illum tenetur, facilis porro. Quae fuga odio perferendis
@@ -61,4 +61,5 @@ class Main extends React.Component {
         );
     }
 }
+
 export default Main

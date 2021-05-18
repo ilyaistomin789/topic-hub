@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@0,100;0,300;1,500&display=swap');
-
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -11,16 +9,16 @@
 }
 
 
-body{
+body {
     background-color: #f3f5f9;
 }
 
-.wrapper{
+.wrapper {
     display: flex;
     position: relative;
 }
 
-.wrapper .sidebar{
+.wrapper .sidebar {
     width: 250px;
     height: 100%;
     background: #51beba;
@@ -28,7 +26,7 @@ body{
     position: fixed;
 }
 
-.wrapper .sidebar h2{
+.wrapper .sidebar h2 {
     color: #fff;
     text-transform: uppercase;
     text-align: center;
@@ -36,30 +34,32 @@ body{
     font-weight: bold;
 }
 
-.wrapper .sidebar ul li{
+.wrapper .sidebar ul li {
 }
-ul{
+
+ul {
     padding-left: 0rem;
 }
 
-.wrapper .sidebar ul li a{
+.wrapper .sidebar ul li a {
     color: #ffffff;
     display: block;
     padding: 15px;
 }
 
-.wrapper .sidebar ul li a .fas{
+.wrapper .sidebar ul li a .fas {
     width: 25px;
 }
 
-.wrapper .sidebar ul li:hover{
+.wrapper .sidebar ul li:hover {
     background-color: #4cb7b3;
 }
 
-.wrapper .sidebar ul li:hover a{
+.wrapper .sidebar ul li:hover a {
     color: #fff;
 }
-.wrapper .sidebar ul li:first-child{
+
+.wrapper .sidebar ul li:first-child {
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -67,20 +67,23 @@ ul{
     justify-content: center;
 
 }
-.wrapper .sidebar ul li:first-child i{
+
+.wrapper .sidebar ul li:first-child i {
     font-size: 45px;
 }
-.wrapper .sidebar ul li:first-child:hover{
+
+.wrapper .sidebar ul li:first-child:hover {
     background: none;
 
 }
 
-.wrapper .sidebar ul li:first-child .auth-buttons{
+.wrapper .sidebar ul li:first-child .auth-buttons {
     display: flex;
     justify-content: space-around;
     width: 100%;
 }
-.wrapper .sidebar ul li:first-child .auth-buttons button{
+
+.wrapper .sidebar ul li:first-child .auth-buttons button {
     font-size: 16px;
     color: #ffffff;
     padding: 10px;
@@ -93,16 +96,18 @@ ul{
     justify-content: center;
     align-items: center;
 }
-.wrapper .sidebar ul li:first-child .auth-buttons button:hover{
+
+.wrapper .sidebar ul li:first-child .auth-buttons button:hover {
     cursor: pointer;
 }
 
-.wrapper .sidebar ul li:first-child .logout-button{
+.wrapper .sidebar ul li:first-child .logout-button {
     display: flex;
     justify-content: space-around;
     width: 100%;
 }
-.wrapper .sidebar ul li:first-child .logout-button button{
+
+.wrapper .sidebar ul li:first-child .logout-button button {
     font-size: 16px;
     color: #ffffff;
     padding: 10px;
@@ -115,11 +120,12 @@ ul{
     justify-content: center;
     align-items: center;
 }
-.wrapper .sidebar ul li:first-child .logout-button button:hover{
+
+.wrapper .sidebar ul li:first-child .logout-button button:hover {
     cursor: pointer;
 }
 
-.wrapper .sidebar ul li:first-child .profile-image{
+.wrapper .sidebar ul li:first-child .profile-image {
     width: 80px;
     height: 80px;
     border-radius: 50px;
@@ -130,14 +136,16 @@ ul{
     align-items: center;
     margin-bottom: 10px;
 }
-.wrapper .sidebar .social_media{
+
+.wrapper .sidebar .social_media {
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
 }
-.wrapper .sidebar .social_media a{
+
+.wrapper .sidebar .social_media a {
     display: block;
     width: 40px;
     background: #4cb7b3;
@@ -150,16 +158,17 @@ ul{
     border-radius: 5px;
 
 }
-.wrapper .sidebar ul li .active i{
+
+.wrapper .sidebar ul li .active i {
     color: black;
 }
 
-.main_content{
+.main_content {
     margin-left: 250px;
 }
 
 
-.main_content .info{
+.main_content .info {
     margin: 20px;
     color: #717171;
     line-height: 25px;

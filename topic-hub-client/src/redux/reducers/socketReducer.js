@@ -7,7 +7,7 @@ const initialState = [{
 const socketReducer = (state = initialState, action) => {
     switch (action.type) {
         case JOIN_ROOM: {
-            return { ...state, ...action.payload };
+            return {...state, ...action.payload};
         }
         default: {
             return state;
