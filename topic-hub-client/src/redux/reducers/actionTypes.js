@@ -11,6 +11,8 @@ export const TOPIC_CLEAR = "TOPIC_CLEAR";
 export const ALL_POSTS = "ALL_POSTS";
 export const CURRENT_POST = "CURRENT_POST";
 export const ALL_COMMENTS = "ALL_COMMENTS";
+export const CURRENT_COMMENT = "CURRENT_COMMENT";
 export const POST_CLEAR = "POST_CLEAR";
 export const COMMENT_CLEAR = "COMMENT_CLEAR";
 export const USER_CLEAR = "USER_CLEAR";
+

@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 module.exports = (user) => {
     console.log(user);
     const token = jwt.sign(user, process.env.JWT_SECRET, {
-        expiresIn: '20m'
+        expiresIn: 3600 * 24
         }
     )
     return new Object({

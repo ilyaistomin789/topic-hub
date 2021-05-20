@@ -19,7 +19,8 @@ module.exports = async (req, res) => {
         instagram: '',
         facebook: ''
     })
-    user.save().catch(e => {
-        console.log(e.message)});
-    res.json({message: 'Sign up success'});
+    user.save()
+        .then(() => res.json({message: 'Sign up success'}))
+        .catch(e => res.json({message: e.message}));
+
 }

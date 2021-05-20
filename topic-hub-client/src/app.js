@@ -70,30 +70,20 @@ function App() {
                         <AdminPanel/>
                     </Route>
                     <Route path="/profile/:id">
-                        {!!id ? <Profile/> : () => {
-                            toggleLogInModal(true)
-                        }}
+                        {!!id ? <Profile/> : null}
                     </Route>
                     <Route path="/topic" exact>
-                        {!!username ? <Topic/> : () => {
-                            toggleLogInModal(true)
-                        }}
+                        {!!username ? <Topic/> : null}
                     </Route>
                     <Route path="/chat" exact>
-                        {!!username ? <Chat onSetMessage={setMessage}/> : () => {
-                            toggleLogInModal(true)
-                        }}
+                        {!!username ? <Chat onSetMessage={setMessage}/> : null}
                         {/*TODO fix null*/}
                     </Route>
                     <Route path='/topic/:topicName' exact>
-                        {!!username ? <CurrentTopic/> : () => {
-                            toggleLogInModal(true)
-                        }}
+                        {!!username ? <CurrentTopic/> : () => null}
                     </Route>
                     <Route path='/topic/:topicName/:postId' exact>
-                        {!!username ? <CurrentPost/> : () => {
-                            toggleLogInModal(true)
-                        }}
+                        {!!username ? <CurrentPost/> : null}
                     </Route>
                 </Switch>
             </div>

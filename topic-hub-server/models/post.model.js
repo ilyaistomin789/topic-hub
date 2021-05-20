@@ -30,8 +30,10 @@ const postSchema = new Schema({
         timestamps: true
     })
 
-postSchema.pre('remove', next => {
-    Comment.remove({post: this._id}).exec();
+postSchema.pre('remove', async function(next) {
+    await Comment.remove({post: {
+        $in: this._id
+        }});
     next();
 });
 

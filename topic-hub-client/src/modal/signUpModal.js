@@ -12,7 +12,6 @@ const SignUpModal = ({closeCallback}) => {
     const [lastName, setLastName] = useState('');
     const checkFields = async (event) => {
         event.preventDefault();
-        //TODO add logic
         await fetch('/auth/signup', {
             method: 'POST',
             headers: {
