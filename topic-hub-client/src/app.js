@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Sidebar from "./components/sidebar";
 import Home from './components/home'
 import './css/app.css'
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import useActions from "./helpers/hooks/useActions";
 import Chat from "./components/chat";
 import socket from "./components/socket"
@@ -15,6 +15,9 @@ import LoginModal from "./modal/loginModal";
 import CurrentPost from "./components/currentPost";
 
 function App() {
+    //TODO: work with images
+    //TODO: do home
+    //TODO: add in all page opening loginModal when token was ended
     const {id, username} = useSelector(state => state.user);
     const redux = useActions();
     const setMessage = (obj) => redux.setMessage(obj);
@@ -69,7 +72,7 @@ function App() {
                     <Route path="/admin" exact>
                         <AdminPanel/>
                     </Route>
-                    <Route path="/profile/:id">
+                    <Route path="/profile/:id" exact>
                         {!!id ? <Profile/> : null}
                     </Route>
                     <Route path="/topic" exact>
@@ -85,6 +88,7 @@ function App() {
                     <Route path='/topic/:topicName/:postId' exact>
                         {!!username ? <CurrentPost/> : null}
                     </Route>
+                    <Redirect to={'/topic'}/>
                 </Switch>
             </div>
         </BrowserRouter>

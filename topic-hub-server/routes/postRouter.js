@@ -4,6 +4,7 @@ const PostController = require('../controllers/postController')
 const router = Router();
 
 router.get('/posts/:topicId', PostController.getPostsByTopicId);
+router.get('/posts/:userId/user', PostController.getPostsByUserId);
 router.get('/post/:postId', PostController.getPostByPostId);
 router.post('/post', PostController.createPostForTopicId);
 router.put('/post/:postId', PostController.editPostByPostId);

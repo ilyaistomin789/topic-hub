@@ -1,27 +1,37 @@
-import Modal from "../elements/modal";
-import ModalCloseButton from "../elements/modalCloseButton";
-import '../css/editUser.css'
-import {useSelector} from "react-redux";
-import React, {useState} from "react";
-import {useParams} from "react-router-dom";
-import useActions from "../helpers/hooks/useActions";
+import React, {useEffect, useState} from "react";
+import Modal from "../../elements/modal";
+import ModalCloseButton from "../../elements/modalCloseButton";
 
-const EditUserModal = ({closeCallback}) => {
-    const {firstName, lastName, img, email, github, twitter, instagram, facebook} = useSelector(state => state.user);
-    const [firstNameValue, setFirstNameValue] = useState(firstName);
-    const [lastNameValue, setLastNameValue] = useState(lastName);
-    const [imgValue, setImgValue] = useState(img);
-    const [emailValue, setEmailValue] = useState(email);
-    const [githubValue, setGithubValue] = useState(github);
-    const [twitterValue, setTwitterValue] = useState(twitter);
-    const [instagramValue, setInstagramValue] = useState(instagram);
-    const [facebookValue, setFacebookValue] = useState(facebook);
-    const redux = useActions();
+const EditUserModal = ({closeCallback, userId}) => {
+    const [firstNameValue, setFirstNameValue] = useState('');
+    const [lastNameValue, setLastNameValue] = useState('');
+    const [imgValue, setImgValue] = useState('');
+    const [emailValue, setEmailValue] = useState('');
+    const [githubValue, setGithubValue] = useState('');
+    const [twitterValue, setTwitterValue] = useState('');
+    const [instagramValue, setInstagramValue] = useState('');
+    const [facebookValue, setFacebookValue] = useState('');
+    useEffect(() => {
+        (async () => {
+            await fetch(`/user/${userId}`, {
+                method: 'GET'
+            })
+                .then(data => data.json())
+                .then(({firstName, lastName, email, github, twitter, instagram, facebook}) => {
+                    setFirstNameValue(firstName);
+                    setLastNameValue(lastName);
+                    setEmailValue(email);
+                    setTwitterValue(twitter);
+                    setFacebookValue(facebook);
+                    setInstagramValue(instagram);
+                    setGithubValue(github);
+                })
+        })()
+    }, [])
 
-    const {id} = useParams();
     const editUserSubmit = async (event) => {
         event.preventDefault();
-        await fetch(`/user/${id}`, {
+        await fetch(`/user/${userId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,10 +46,13 @@ const EditUserModal = ({closeCallback}) => {
                 instagram: instagramValue,
                 facebook: facebookValue
             })
-        }).then(() => {
-            closeCallback();
-            redux.getUserById(firstNameValue, lastNameValue, emailValue, githubValue, twitterValue, instagramValue, facebookValue);
         })
+            .then(data => data.json())
+            .then(({message}) => {
+                alert(message);
+                closeCallback();
+                window.location.reload();
+            })
             .catch(e => {
                 alert(e.message);
             })
@@ -111,4 +124,5 @@ const EditUserModal = ({closeCallback}) => {
         </Modal>
     )
 }
+
 export default EditUserModal;

@@ -1,4 +1,4 @@
-import {AUTHORIZATION, ALL_USERS, USER_CLEAR, GET_USER_DATA} from "../reducers/actionTypes";
+import {AUTHORIZATION, ALL_USERS, USER_CLEAR, GET_USER_DATA, USER_POSTS} from "../reducers/actionTypes";
 
 export const authUser = (id, username, role, img, token, success) => (dispatch) => {
     try {
@@ -47,6 +47,13 @@ export const getUserById = (firstName, lastName, email, github, twitter, instagr
                 facebook: null
             }
         })
+    }
+}
+export const getUserPosts = (obj) => (dispatch) => {
+    try {
+        dispatch({type: USER_POSTS, payload: {posts: obj}});
+    } catch (e) {
+        dispatch({type: USER_POSTS, payload: null});
     }
 }
 

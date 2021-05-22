@@ -16,6 +16,6 @@ module.exports = async (req, res) => {
             facebook
         }
     })
-        .then(result => res.json(result))
+        .then(() => res.json({message: 'User updated successfully'}))
         .catch(e => res.json({message: e.message}))
 }

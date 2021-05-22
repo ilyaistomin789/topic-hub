@@ -4,7 +4,6 @@ module.exports = async (req, res) => {
     const topicExists = await Topic.findOne({
         name: req.body.name
     })
-    console.log(topicExists);
     if (topicExists !== null) {
         return res.status(409).json({ message: 'This topic already exists' });
     }

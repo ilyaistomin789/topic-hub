@@ -15,4 +15,5 @@ export const CURRENT_COMMENT = "CURRENT_COMMENT";
 export const POST_CLEAR = "POST_CLEAR";
 export const COMMENT_CLEAR = "COMMENT_CLEAR";
 export const USER_CLEAR = "USER_CLEAR";
+export const USER_POSTS = "USER_POSTS";
 

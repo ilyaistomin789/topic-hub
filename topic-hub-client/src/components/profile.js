@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import '../css/profile.css';
-import {NavLink, useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import useActions from "../helpers/hooks/useActions";
 import EditUserModal from "../modal/editUserModal";
@@ -9,6 +9,8 @@ const Profile = () => {
     const [showEditUserModal, toggleEditUserModal] = useState(false);
     const redux = useActions();
     const {id} = useParams();
+    const history = useHistory();
+    const redirect = (path) => history.push(path);
     useEffect(() => {
         (async () => {
             await fetch(`/user/${id}`, {
@@ -22,6 +24,14 @@ const Profile = () => {
                 .catch(e => {
                     alert(e.message);
                 })
+            await fetch(`/posts/${id}/user`, {
+                method: 'GET'
+            })
+                .then(data => data.json())
+                .then(posts => {
+                    redux.getUserPosts(posts);
+                })
+                .catch()
         })()
     }, [])
     const {
@@ -34,7 +44,8 @@ const Profile = () => {
         github,
         twitter,
         instagram,
-        facebook
+        facebook,
+        posts
     } = useSelector(state => state.user);
     return (
         <>
@@ -48,7 +59,7 @@ const Profile = () => {
                                     <div className="card">
                                         <div className="card-body">
                                             <div className="d-flex flex-column align-items-center text-center">
-                                                 {!!img ? <img src={img} alt="Admin" className="rounded-circle"
+                                                {!!img ? <img src={img} alt="Admin" className="rounded-circle"
                                                               width="150"/> :
                                                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
                                                          alt="Admin"
@@ -145,17 +156,36 @@ const Profile = () => {
                                                         <i className="fas fa-bookmark"/>
                                                         My Posts
                                                     </h6>
+
                                                     <ul className="list-group">
-                                                        <li className="list-group-item">
-                                                            <div id="list-span">
-                                                                <span id="span_username">Post</span>
-                                                            </div>
-                                                            <div className="btn-group" role="group"
-                                                                 aria-label="Basic outlined example">
-                                                                <NavLink to={`/post/post`} exact
-                                                                         className="btn btn-outline-primary">Show</NavLink>
-                                                            </div>
-                                                        </li>
+                                                        {posts.length > 1 ? (posts.map(({
+                                                                                            _id,
+                                                                                            header,
+                                                                                            topic,
+                                                                                            createdAt
+                                                                                        }) => (
+                                                            <li className="list-group-item">
+                                                                <div id="list-span">
+                                                                    <small>{topic.name}</small>
+                                                                    <span id="span_username">{header}</span>
+                                                                    <small>Created
+                                                                        at {new Date(createdAt).toLocaleDateString('en-US')}</small>
+                                                                </div>
+                                                                <div className="btn-group" role="group"
+                                                                     aria-label="Basic outlined example">
+                                                                    <button
+                                                                        onClick={() => redirect(`/topic/${topic.name}/${_id}`)}
+                                                                        className="btn btn-outline-primary">Show
+                                                                    </button>
+                                                                </div>
+                                                            </li>
+                                                        ))) : (
+                                                            <li className="list-group-item">
+                                                                <div id="list-span">
+                                                                    <span id="span_username">No posts</span>
+                                                                </div>
+                                                            </li>
+                                                        )}
                                                     </ul>
                                                 </div>
                                             </div>

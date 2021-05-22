@@ -1,4 +1,4 @@
-import {ALL_USERS, AUTHORIZATION, GET_USER_DATA, USER_CLEAR} from "./actionTypes";
+import {ALL_USERS, AUTHORIZATION, GET_USER_DATA, USER_CLEAR, USER_POSTS} from "./actionTypes";
 
 const initialState = {
     id: null,
@@ -14,7 +14,8 @@ const initialState = {
     twitter: null,
     instagram: null,
     facebook: null,
-    users: []
+    users: [],
+    posts: []
 }
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -26,6 +27,9 @@ const userReducer = (state = initialState, action) => {
         }
         case USER_CLEAR: {
             return initialState;
+        }
+        case USER_POSTS: {
+            return {...state, ...action.payload};
         }
         case GET_USER_DATA: {
             return {...state, ...action.payload};
