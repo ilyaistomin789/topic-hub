@@ -48,7 +48,6 @@ const AdminPanel = (props) => {
                     alert('To work with the admin panel, you need to log in')
                 })
         })();
-        //TODO: do buttons for topics
     }, [])
     const {users} = useSelector(state => state.user);
     const {topics} = useSelector(state => state.topic);

@@ -11,9 +11,17 @@ const app = express();
 const passport = require('passport');
 const mongoose = require('mongoose');
 const initializePassport = require('./config/passport-config');
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
 
+const fs = require('fs');
+const https = require('https');
+
+const options = {
+    cert: fs.readFileSync('./config/stmnl.crt'),
+    key: fs.readFileSync('./config/stmnl.key')
+}
+
+const server = require('https').createServer(options,app);
+const io = require('socket.io')(server);
 
 mongoose.connect(process.env.MONGODB_CONNECT, {
     useNewUrlParser: true,

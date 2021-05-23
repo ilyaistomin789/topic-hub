@@ -18,7 +18,6 @@ import Error from "./components/error";
 function App() {
     //TODO: work with images
     //TODO: do home
-    //TODO: add in all page opening loginModal when token was ended
     const {id, username} = useSelector(state => state.user);
     const redux = useActions();
     const setMessage = (obj) => redux.setMessage(obj);
@@ -82,7 +81,6 @@ function App() {
                     </Route>
                     <Route path="/chat" exact>
                         {!!username ? <Chat onSetMessage={setMessage}/> : <Error statusCode={'401'} statusMessage={'Unauthorized'} message={'To work with the profile page, you need to log in'}/>}
-                        {/*TODO fix null*/}
                     </Route>
                     <Route path='/topic/:topicName' exact>
                         {!!username ? <CurrentTopic/> : <Error statusCode={'401'} statusMessage={'Unauthorized'} message={'To work with the profile page, you need to log in'}/>}
