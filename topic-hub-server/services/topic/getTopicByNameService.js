@@ -4,7 +4,6 @@ module.exports = async (req, res) => {
     const topic = await Topic.findOne({
         name: name
     })
-    console.log(topic)
     if (topic === null) {
         return res.sendStatus(404);
     }

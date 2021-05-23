@@ -71,8 +71,6 @@ const Sidebar = (props) => {
                     </li>
                     <li><NavLink to="/chat" activeClassName="active"><i
     className="fas fa-paper-plane"/>Chat</NavLink></li>
-                    <li><NavLink to="/search" activeClassName="active"><i className="fas fa-search"/>Search</NavLink>
-                    </li>
                 </ul>
                 <div className="social_media">
                     <a href="https://github.com/ilyaistomin789" target="_blank" rel="noreferrer"><i

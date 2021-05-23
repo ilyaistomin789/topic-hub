@@ -40,3 +40,4 @@ postSchema.pre('remove', async function(next) {
 postSchema.plugin(autopopulate);
 
 module.exports = mongoose.model('Post', postSchema);
+

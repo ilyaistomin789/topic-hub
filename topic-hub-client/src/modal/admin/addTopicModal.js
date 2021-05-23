@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 const AddTopicModal = ({closeCallback, showAddTopicModal}) => {
     const {id} = useSelector(state => state.user);
     const [nameValue, setNameValue] = useState('');
-    const addTopicModal = async (e) => {
+    const addTopicSubmit = async (e) => {
         e.preventDefault();
         await fetch('/topic', {
             method: 'POST',
@@ -38,7 +38,7 @@ const AddTopicModal = ({closeCallback, showAddTopicModal}) => {
                 <Modal.Header>
                     <Modal.Title>Add Topic</Modal.Title>
                 </Modal.Header>
-                <form onSubmit={addTopicModal}>
+                <form onSubmit={addTopicSubmit}>
                     <Modal.Body>
                         <label htmlFor="topic-input" className="form-label">Topic Name</label>
                         <input type="text" className="form-control" name="topic" id="topic-input"

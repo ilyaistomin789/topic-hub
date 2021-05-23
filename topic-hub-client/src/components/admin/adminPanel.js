@@ -6,6 +6,8 @@ import AddTopicModal from "../../modal/admin/addTopicModal";
 import ShowUserModal from "../../modal/admin/showUserModal";
 import EditUserModal from "../../modal/admin/editUserModal";
 import DeleteUserModal from "../../modal/admin/deleteUserModal";
+import EditTopicModal from "../../modal/admin/editTopicModal";
+import DeleteTopicModal from "../../modal/admin/deleteTopicModal";
 
 const AdminPanel = (props) => {
     const redux = useActions();
@@ -13,7 +15,10 @@ const AdminPanel = (props) => {
     const [showAddTopicModal, toggleAddTopicModal] = useState(false);
     const [showShowUserModal, toggleShowUserModal] = useState(false);
     const [showEditUserModal, toggleEditUserModal] = useState(false);
+    const [showEditTopicModal, toggleEditTopicModal] = useState(false);
+    const [showDeleteTopicModal, toggleDeleteTopicModal] = useState(false);
     const [currentUserIdValue, setCurrentUserIdValue] = useState('');
+    const [currentTopicNameValue, setCurrentTopicNameValue] = useState('');
     useEffect(() => {
         (async () => {
             await fetch('/user', {
@@ -36,7 +41,8 @@ const AdminPanel = (props) => {
                     redux.getTopics(topics);
                 })
                 .catch(e => {
-                    alert(e.message)
+                    console.log(e.message)
+                    alert('To work with the admin panel, you need to log in')
                 })
         })();
         //TODO: do buttons for topics
@@ -54,6 +60,12 @@ const AdminPanel = (props) => {
                 <EditUserModal closeCallback={() => toggleEditUserModal(false)} userId={currentUserIdValue}/> : null}
             {showAddTopicModal ? <AddTopicModal closeCallback={() => toggleAddTopicModal(false)}
                                                 showAddTopicModal={showAddTopicModal}/> : null}
+            {showEditTopicModal ? <EditTopicModal closeCallback={() => toggleEditTopicModal(false)}
+                                                  showEditTopicModal={showEditTopicModal}
+                                                  topicName={currentTopicNameValue}/> : null}
+            {showDeleteTopicModal ?
+                <DeleteTopicModal closeCallback={() => toggleDeleteTopicModal(false)} topicName={currentTopicNameValue}
+                                  showDeleteTopicModal={showDeleteTopicModal}/> : null}
             <div className="main_content">
                 <div className="info">
                     <button type="button" className="btn btn-primary" onClick={() => toggleAddTopicModal(true)}>Add
@@ -81,7 +93,8 @@ const AdminPanel = (props) => {
                                     <button type="button" className="btn btn-outline-primary" onClick={() => {
                                         setCurrentUserIdValue(user._id);
                                         toggleDeleteUserModal(true);
-                                    }}>Delete</button>
+                                    }}>Delete
+                                    </button>
                                 </div>
                             </li>
                         ))}
@@ -94,9 +107,16 @@ const AdminPanel = (props) => {
                                     <span id="span_username">{topic.name}</span>
                                 </div>
                                 <div className="btn-group" role="group" aria-label="Basic outlined example">
-                                    <button type="button" className="btn btn-outline-primary">Show</button>
-                                    <button type="button" className="btn btn-outline-primary">Edit</button>
-                                    <button type="button" className="btn btn-outline-primary">Delete</button>
+                                    <button type="button" className="btn btn-outline-primary" onClick={() => {
+                                        setCurrentTopicNameValue(topic.name);
+                                        toggleEditTopicModal(true);
+                                    }}>Edit
+                                    </button>
+                                    <button type="button" className="btn btn-outline-primary" onClick={() => {
+                                        setCurrentTopicNameValue(topic.name);
+                                        toggleDeleteTopicModal(true);
+                                    }}>Delete
+                                    </button>
                                 </div>
                             </li>
                         ))}

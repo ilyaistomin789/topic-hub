@@ -18,7 +18,6 @@ const Profile = () => {
             })
                 .then(value => value.json())
                 .then(({firstName, lastName, email, github, twitter, instagram, facebook}) => {
-
                     redux.getUserById(firstName, lastName, email, github, twitter, instagram, facebook);
                 })
                 .catch(e => {
@@ -158,7 +157,7 @@ const Profile = () => {
                                                     </h6>
 
                                                     <ul className="list-group">
-                                                        {posts.length > 1 ? (posts.map(({
+                                                        {posts.length > 0 ? (posts.map(({
                                                                                             _id,
                                                                                             header,
                                                                                             topic,

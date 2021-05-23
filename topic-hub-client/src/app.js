@@ -13,6 +13,7 @@ import CurrentTopic from "./components/currentTopic";
 import Profile from "./components/profile";
 import LoginModal from "./modal/loginModal";
 import CurrentPost from "./components/currentPost";
+import Error from "./components/error";
 
 function App() {
     //TODO: work with images
@@ -42,6 +43,7 @@ function App() {
                 .catch((e) => {
                     localStorage.removeItem('token');
                     socket.disconnect();
+                    alert('You session was ended, please log in again.');
                     toggleLogInModal(true);
                 })
         } else console.warn("Check request is passed")
@@ -70,23 +72,23 @@ function App() {
                         <Home/>
                     </Route>
                     <Route path="/admin" exact>
-                        <AdminPanel/>
+                        {id !== null ? <AdminPanel/> : <Error statusCode={'401'} statusMessage={'Unauthorized'} message={'To work with the profile page, you need to log in'}/>}
                     </Route>
                     <Route path="/profile/:id" exact>
-                        {!!id ? <Profile/> : null}
+                        {id !== null ? <Profile/> : <Error statusCode={'401'} statusMessage={'Unauthorized'} message={'To work with the profile page, you need to log in'}/>}
                     </Route>
                     <Route path="/topic" exact>
-                        {!!username ? <Topic/> : null}
+                        {!!username ? <Topic/> : <Error statusCode={'401'} statusMessage={'Unauthorized'} message={'To work with the profile page, you need to log in'}/>}
                     </Route>
                     <Route path="/chat" exact>
-                        {!!username ? <Chat onSetMessage={setMessage}/> : null}
+                        {!!username ? <Chat onSetMessage={setMessage}/> : <Error statusCode={'401'} statusMessage={'Unauthorized'} message={'To work with the profile page, you need to log in'}/>}
                         {/*TODO fix null*/}
                     </Route>
                     <Route path='/topic/:topicName' exact>
-                        {!!username ? <CurrentTopic/> : () => null}
+                        {!!username ? <CurrentTopic/> : <Error statusCode={'401'} statusMessage={'Unauthorized'} message={'To work with the profile page, you need to log in'}/>}
                     </Route>
                     <Route path='/topic/:topicName/:postId' exact>
-                        {!!username ? <CurrentPost/> : null}
+                        {!!username ? <CurrentPost/> : <Error statusCode={'401'} statusMessage={'Unauthorized'} message={'To work with the profile page, you need to log in'}/>}
                     </Route>
                     <Redirect to={'/topic'}/>
                 </Switch>
