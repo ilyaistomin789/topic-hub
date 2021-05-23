@@ -12,13 +12,19 @@ const CurrentTopic = () => {
     useEffect(() => {
         (async () => {
                 await fetch(`/topic/${topicName}`, {
-                    method: 'GET'
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
                 })
                     .then(data => data.json())
                     .then(({_id, name, createBy, createdAt, updatedAt}) => {
                         redux.getCurrentTopic(_id, name, createBy, createdAt, updatedAt);
                         fetch(`/posts/${_id}`, {
-                            method: 'GET'
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                            }
                         }).then(data => data.json())
                             .then((posts) => {
                                 redux.getPosts(posts);

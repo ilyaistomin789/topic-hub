@@ -5,6 +5,9 @@ const DeleteCommentModal = ({commentId ,showDeleteCommentModal, closeCallback}) 
     const deleteCommentClick = async (commentId) => {
         await fetch(`/comment/${commentId}`, {
             method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then(data => data.json())
             .then(({message}) => {

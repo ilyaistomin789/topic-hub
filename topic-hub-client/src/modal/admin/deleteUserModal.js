@@ -3,7 +3,10 @@ import {Button, Modal} from "react-bootstrap";
 const DeleteUserModal = ({closeCallback, showDeleteUserModal, userId}) => {
     const deleteUserClick = async (userId) => {
         await fetch(`/user/${userId}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then(data => data.json())
             .then(({message}) => {

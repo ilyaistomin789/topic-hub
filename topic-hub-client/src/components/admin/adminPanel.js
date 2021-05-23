@@ -22,7 +22,10 @@ const AdminPanel = (props) => {
     useEffect(() => {
         (async () => {
             await fetch('/user', {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             })
                 .then(data => data.json())
                 .then(users => {

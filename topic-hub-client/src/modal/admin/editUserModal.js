@@ -14,7 +14,10 @@ const EditUserModal = ({closeCallback, userId}) => {
     useEffect(() => {
         (async () => {
             await fetch(`/user/${userId}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             })
                 .then(data => data.json())
                 .then(({firstName, lastName, email, github, twitter, instagram, facebook}) => {
@@ -35,6 +38,7 @@ const EditUserModal = ({closeCallback, userId}) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
                 firstName: firstNameValue,

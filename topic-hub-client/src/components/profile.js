@@ -14,7 +14,10 @@ const Profile = () => {
     useEffect(() => {
         (async () => {
             await fetch(`/user/${id}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             })
                 .then(value => value.json())
                 .then(({firstName, lastName, email, github, twitter, instagram, facebook}) => {
@@ -24,7 +27,10 @@ const Profile = () => {
                     alert(e.message);
                 })
             await fetch(`/posts/${id}/user`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             })
                 .then(data => data.json())
                 .then(posts => {

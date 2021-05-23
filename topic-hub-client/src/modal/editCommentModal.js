@@ -14,7 +14,10 @@ const EditCommentModal = ({commentId, closeCallback}) => {
     useEffect(() => {
         (async () => {
             await fetch(`/comment/${commentId}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             })
                 .then(data => data.json())
                 .then(({_id, text, img, post, createBy}) => {
@@ -29,7 +32,8 @@ const EditCommentModal = ({commentId, closeCallback}) => {
         await fetch(`/comment/${commentId}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
                 text: textValue,
@@ -37,7 +41,7 @@ const EditCommentModal = ({commentId, closeCallback}) => {
             })
         })
             .then(() => {
-                alert('Done!');
+                alert('Comment updated successfully!');
                 closeCallback();
                 window.location.reload();
             })

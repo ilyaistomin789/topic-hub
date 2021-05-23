@@ -16,7 +16,10 @@ const ShowUserModal = ({closeCallback, userId}) => {
     useEffect(() => {
         (async () => {
             await fetch(`/user/${userId}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             })
                 .then(data => data.json())
                 .then(({firstName, lastName, email, github, twitter, instagram, facebook}) => {

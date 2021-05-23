@@ -9,7 +9,10 @@ const EditPostModal = ({closeCallback, postId}) => {
     useEffect(() => {
         (async () => {
             await fetch(`/post/${postId}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             })
                 .then(data => data.json())
                 .then(({header, description}) => {
@@ -23,7 +26,8 @@ const EditPostModal = ({closeCallback, postId}) => {
         await fetch(`/post/${postId}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
                 header: headerValue,

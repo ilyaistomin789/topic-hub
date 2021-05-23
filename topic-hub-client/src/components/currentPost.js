@@ -25,7 +25,8 @@ const CurrentPost = () => {
         await fetch('/comment', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
                 text: commentValue,
@@ -39,13 +40,19 @@ const CurrentPost = () => {
     useEffect(() => {
         (async () => {
             await fetch(`/post/${postId}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             })
                 .then(data => data.json())
                 .then(({_id, header, createBy, topic, description, createdAt, updatedAt}) => {
                     redux.getCurrentPost(_id, header, createBy, topic, description, createdAt, updatedAt);
                     fetch(`/comments/${_id}`, {
-                        method: 'GET'
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        }
                     })
                         .then(data => data.json())
                         .then(comments => {

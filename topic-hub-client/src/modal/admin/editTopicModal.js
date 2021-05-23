@@ -9,7 +9,10 @@ const EditTopicModal = ({closeCallback, showEditTopicModal, topicName}) => {
     useEffect(() => {
         (async () => {
             await fetch(`/topic/${topicName}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             })
                 .then(data => data.json())
                 .then(({_id}) => {
@@ -22,7 +25,8 @@ const EditTopicModal = ({closeCallback, showEditTopicModal, topicName}) => {
         await fetch(`/topic/${idValue}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
                 name: nameValue,

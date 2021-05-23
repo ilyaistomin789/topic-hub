@@ -8,6 +8,9 @@ const DeletePostModal = ({postId ,showDeletePostModal, closeCallback}) => {
     const deletePostClick = async (postId) => {
         await fetch(`/post/${postId}`, {
             method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then(data => data.json())
             .then(({message}) => {
