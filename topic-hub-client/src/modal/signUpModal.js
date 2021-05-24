@@ -12,6 +12,14 @@ const SignUpModal = ({closeCallback}) => {
     const [lastName, setLastName] = useState('');
     const checkFields = async (event) => {
         event.preventDefault();
+        if (password !== confirmPassword) {
+            alert('Passwords are not equal');
+            return;
+        }
+        if (password.length < 6) {
+            alert('Password must be at least 6 characters');
+            return;
+        }
         await fetch('/auth/signup', {
             method: 'POST',
             headers: {

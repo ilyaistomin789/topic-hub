@@ -5,57 +5,43 @@ class Main extends React.Component {
         return (
             <div className="main_content">
                 <div className="info">
-                    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed nobis ut exercitationem
-                        atque accusamus sit natus officiis totam blanditiis at eum nemo, nulla et quae eius culpa
-                        eveniet voluptatibus repellat illum tenetur, facilis porro. Quae fuga odio perferendis
-                        itaque alias sint, beatae non maiores magnam ad, veniam tenetur atque ea exercitationem
-                        earum eveniet totam ipsam magni tempora aliquid ullam possimus? Tempora nobis facere porro,
-                        praesentium magnam provident accusamus temporibus! Repellendus harum veritatis itaque
-                        molestias repudiandae ea corporis maiores non obcaecati libero, unde ipsum consequuntur aut
-                        consectetur culpa magni omnis vero odio suscipit vitae dolor quod dignissimos perferendis
-                        eos? Consequuntur!
-                    </div>
-                    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed nobis ut exercitationem
-                        atque accusamus sit natus officiis totam blanditiis at eum nemo, nulla et quae eius culpa
-                        eveniet voluptatibus repellat illum tenetur, facilis porro. Quae fuga odio perferendis
-                        itaque alias sint, beatae non maiores magnam ad, veniam tenetur atque ea exercitationem
-                        earum eveniet totam ipsam magni tempora aliquid ullam possimus? Tempora nobis facere porro,
-                        praesentium magnam provident accusamus temporibus! Repellendus harum veritatis itaque
-                        molestias repudiandae ea corporis maiores non obcaecati libero, unde ipsum consequuntur aut
-                        consectetur culpa magni omnis vero odio suscipit vitae dolor quod dignissimos perferendis
-                        eos? Consequuntur!
-                    </div>
-                    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed nobis ut exercitationem
-                        atque accusamus sit natus officiis totam blanditiis at eum nemo, nulla et quae eius culpa
-                        eveniet voluptatibus repellat illum tenetur, facilis porro. Quae fuga odio perferendis
-                        itaque alias sint, beatae non maiores magnam ad, veniam tenetur atque ea exercitationem
-                        earum eveniet totam ipsam magni tempora aliquid ullam possimus? Tempora nobis facere porro,
-                        praesentium magnam provident accusamus temporibus! Repellendus harum veritatis itaque
-                        molestias repudiandae ea corporis maiores non obcaecati libero, unde ipsum consequuntur aut
-                        consectetur culpa magni omnis vero odio suscipit vitae dolor quod dignissimos perferendis
-                        eos? Consequuntur!
-                    </div>
+                    <section className="py-5">
+                        <div className="container px-4 px-lg-5 my-5">
+                            <div className="row gx-4 gx-lg-5 align-items-center">
+                                <div className="col-md-6"><img className="card-img-top mb-5 mb-md-0"
+                                                               src="https://www.outlookindia.com/outlooktraveller/resizer.php?src=https://www.outlookindia.com/outlooktraveller/public/uploads/articles/explore/hyd_main.jpg&w=600&h=700"
+                                                               alt="..."/></div>
+                                <div className="col-md-6">
+                                    <div className="small mb-1">Home page</div>
+                                    <h1 className="display-5 fw-bolder">Welcome to our forum Topic Hub!</h1>
+                                    <p className="lead">Topic Hub it's a forum, where you can communicate with forum
+                                        participants on various topics. Topic Hub is implemented using React.js and
+                                        Node.js. Also the following concepts are used:
+                                        <ul className="list-group">
+                                            <li className="list-group-item">JSON Web Token</li>
 
-                    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed nobis ut exercitationem
-                        atque accusamus sit natus officiis totam blanditiis at eum nemo, nulla et quae eius culpa
-                        eveniet voluptatibus repellat illum tenetur, facilis porro. Quae fuga odio perferendis
-                        itaque alias sint, beatae non maiores magnam ad, veniam tenetur atque ea exercitationem
-                        earum eveniet totam ipsam magni tempora aliquid ullam possimus? Tempora nobis facere porro,
-                        praesentium magnam provident accusamus temporibus! Repellendus harum veritatis itaque
-                        molestias repudiandae ea corporis maiores non obcaecati libero, unde ipsum consequuntur aut
-                        consectetur culpa magni omnis vero odio suscipit vitae dolor quod dignissimos perferendis
-                        eos? Consequuntur!
-                    </div>
-                    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. A sed nobis ut exercitationem
-                        atque accusamus sit natus officiis totam blanditiis at eum nemo, nulla et quae eius culpa
-                        eveniet voluptatibus repellat illum tenetur, facilis porro. Quae fuga odio perferendis
-                        itaque alias sint, beatae non maiores magnam ad, veniam tenetur atque ea exercitationem
-                        earum eveniet totam ipsam magni tempora aliquid ullam possimus? Tempora nobis facere porro,
-                        praesentium magnam provident accusamus temporibus! Repellendus harum veritatis itaque
-                        molestias repudiandae ea corporis maiores non obcaecati libero, unde ipsum consequuntur aut
-                        consectetur culpa magni omnis vero odio suscipit vitae dolor quod dignissimos perferendis
-                        eos? Consequuntur!
-                    </div>
+                                            <li className="list-group-item list-group-item-primary">Local Strategy
+                                            </li>
+                                            <li className="list-group-item list-group-item-secondary">Express.JS
+                                            </li>
+                                            <li className="list-group-item list-group-item-success">Mongo DB
+                                            </li>
+                                            <li className="list-group-item list-group-item-danger">Passport
+                                            </li>
+                                            <li className="list-group-item list-group-item-warning">HTTPS
+                                            </li>
+                                            <li className="list-group-item list-group-item-info">Socket-IO</li>
+                                        </ul></p>
+                                    <div className="d-flex">
+                                        <a className="btn btn-outline-dark flex-shrink-0" type="button" href="https://github.com/ilyaistomin789/topic-hub" target='_blank'>
+                                            <i className="bi-cart-fill me-1"/>
+                                            Check source code
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         );

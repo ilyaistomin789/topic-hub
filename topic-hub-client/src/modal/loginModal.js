@@ -16,8 +16,6 @@ const LoginModal = ({closeCallback}) => {
     }
     const checkFields = async (event) => {
         event.preventDefault();
-        // this.state.login.length < 5 && alert('Login length must be more than 5 characters');
-        // this.state.password.length < 5 && alert('Password length must be more than 5 characters');
         await fetch('/auth/login', {
             method: 'POST',
             headers: {
@@ -34,6 +32,9 @@ const LoginModal = ({closeCallback}) => {
                 socket.emit('JOIN', {username: user['user'].username});
                 redirect(`/profile/${user['user'].id}`);
                 localStorage.setItem('token', user.token);
+            })
+            .catch(e => {
+                alert('Please check field correctness');
             })
     }
     useEffect(() => {
