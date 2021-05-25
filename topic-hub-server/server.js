@@ -43,40 +43,33 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var messages = [];
 var users = [];
 io.on('connection', socket => {
-    console.log("connected");
     socket.on('JOIN', ({username}) => {
-        console.log("JOIN on")
+
         if (users.some(user => user.username === username)){
             users = users.filter(user => user.username !== username);
         }
         users.push({userID: socket.id, username: username});
-        console.log("set users emit broadcast")
         socket.broadcast.emit("SET_USERS", users);
-        console.log("socket data emit")
         socket.emit("SOCKET_DATA", {
             users: users,
             messages: messages
         })
-        console.log("socket data emit broadcast")
         socket.broadcast.emit("SOCKET_DATA", {
             users: users,
             messages: messages
         })
     })
-    console.log("new message on")
     socket.on("NEW_MESSAGE", ({username, message}) => {
         const obj = {
             username,
             message
         };
         messages.push(obj);
-        console.log("new message emit broadcast")
         socket.broadcast.emit("NEW_MESSAGE", obj);
         socket.emit("SOCKET_DATA", {
             users: users,
             messages: messages
         })
-        console.log("socket data emit brodacast")
         socket.broadcast.emit("SOCKET_DATA", {
             users: users,
             messages: messages

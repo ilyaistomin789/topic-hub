@@ -12,3 +12,5 @@ module.exports = async (req, res) => {
         .then(() => res.json({message: 'Post updated successfully'}))
         .catch(err => res.json({message: err.message}));
 }
+
+
